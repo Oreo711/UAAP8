@@ -1296,6 +1296,10 @@ PrefabInstance:
       propertyPath: _explosionSound
       value: 
       objectReference: {fileID: 531530398}
+    - target: {fileID: 8936030588246935916, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
+      propertyPath: _explosionDamage
+      value: 40
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
