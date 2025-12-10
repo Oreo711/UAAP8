@@ -2,52 +2,61 @@ using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
+
 [RequireComponent(typeof(SphereCollider))]
 public class Landmine : MonoBehaviour
 {
-    [SerializeField] private float       _triggerDistance = 2f;
-    [SerializeField] private float       _explosionDamage;
-    [SerializeField] private float       _detonationTime;
-    [SerializeField] private AudioSource _explosionSound;
-    [SerializeField] private GameObject  _explosionIndicatorPrefab;
-    [SerializeField] private float       _indicatorLinger;
+	[SerializeField] private float       _triggerDistance = 2f;
+	[SerializeField] private float       _explosionDamage;
+	[SerializeField] private float       _detonationTime;
+	[SerializeField] private AudioSource _explosionSound;
 
-    private SphereCollider _collider;
-    private float    _remainingDetonationTime;
 
-    private void Awake ()
-    {
-        _collider = GetComponent<SphereCollider>();
-        _remainingDetonationTime = _detonationTime;
-        _collider.radius = _triggerDistance;
-    }
+	private SphereCollider _collider;
+	private float _remainingDetonationTime;
+	private GameObject _activator;
 
-    private void OnTriggerStay (Collider other)
-    {
-        if (!other.TryGetComponent(out Character character))
-        {
-            return;
-        }
+	public bool  IsActivated     {get; private set;}
+	public bool  IsDetonated     {get; private set;}
+	public float TriggerDistance => _triggerDistance;
 
-        _remainingDetonationTime -= Time.deltaTime;
+	private void Awake ()
+	{
+		_collider = GetComponent<SphereCollider>();
+		_remainingDetonationTime = _detonationTime;
+		_collider.radius = _triggerDistance;
+	}
 
-        if (_remainingDetonationTime <= 0)
-        {
-            _explosionSound.transform.position = transform.position;
-            _explosionSound.Play();
-            GameObject indicator = Instantiate(_explosionIndicatorPrefab, transform.position, Quaternion.identity);
-            indicator.transform.localScale = Vector3.one * _triggerDistance;
-            character.TakeDamage(_explosionDamage);
-            Destroy(indicator, 2f);
-            Destroy(gameObject);
-        }
-    }
+	private void Update ()
+	{
+		if (IsActivated)
+		{
+			_remainingDetonationTime -= Time.deltaTime;
 
-    private void OnTriggerExit (Collider other)
-    {
-        if (other.TryGetComponent(out Character character))
-        {
-            _remainingDetonationTime = _detonationTime;
-        }
-    }
+			if (_remainingDetonationTime <= 0)
+			{
+				_explosionSound.transform.position = transform.position;
+				_explosionSound.Play();
+
+				if (_activator && (_activator.transform.position - transform.position).magnitude < _triggerDistance)
+				{
+					CharacterHealth activatorHealth = _activator.GetComponent<CharacterHealth>();
+					activatorHealth.TakeDamage(_explosionDamage);
+				}
+
+				IsDetonated = true;
+			}
+		}
+	}
+
+	private void OnTriggerEnter (Collider other)
+	{
+			IsActivated = true;
+			_activator = other.gameObject;
+	}
+
+	private void OnTriggerExit (Collider other)
+	{
+			_remainingDetonationTime = _detonationTime;
+	}
 }

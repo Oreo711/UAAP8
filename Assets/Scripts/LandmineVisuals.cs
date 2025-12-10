@@ -1,0 +1,20 @@
+using System;
+using UnityEngine;
+
+public class LandmineVisuals : MonoBehaviour
+{
+	[SerializeField] private Landmine _landmine;
+	[SerializeField] private GameObject _explosionIndicatorPrefab;
+	[SerializeField] private float      _indicatorLinger;
+
+	private void Update ()
+	{
+		if (_landmine.IsDetonated)
+		{
+			GameObject indicator = Instantiate(_explosionIndicatorPrefab, transform.position, Quaternion.identity);
+			indicator.transform.localScale = Vector3.one * (_landmine.TriggerDistance * 2);
+			Destroy(indicator, _indicatorLinger);
+			Destroy(_landmine.gameObject);
+		}
+	}
+}

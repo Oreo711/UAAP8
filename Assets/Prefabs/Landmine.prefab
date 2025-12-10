@@ -26,12 +26,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3857019589997735773}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.243, z: 0}
-  m_LocalScale: {x: 0.23632, y: 0.03658022, z: 0.23632}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.1199999, z: 0}
+  m_LocalScale: {x: 0.23632, y: 0.24386811, z: 0.23632}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2187897490235254661}
+  m_Father: {fileID: 6448629898759780112}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1765375257196656740
 MeshFilter:
@@ -118,7 +118,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6448629898759780112}
-  - {fileID: 390585614831757111}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &8328426352321478993
@@ -158,8 +157,6 @@ MonoBehaviour:
   _explosionDamage: 40
   _detonationTime: 2
   _explosionSound: {fileID: 0}
-  _explosionIndicatorPrefab: {fileID: 8831486701401682502, guid: 2b849ce9983a03244a631fbc7977b6d3, type: 3}
-  _indicatorLinger: 2
 --- !u!1 &5340812534250641949
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,6 +168,7 @@ GameObject:
   - component: {fileID: 6448629898759780112}
   - component: {fileID: 4226861529116542736}
   - component: {fileID: 6737966547024912119}
+  - component: {fileID: 3362086416941791545}
   m_Layer: 0
   m_Name: Mine
   m_TagString: Untagged
@@ -190,7 +188,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.075, z: 0}
   m_LocalScale: {x: 1, y: 0.15, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 390585614831757111}
   m_Father: {fileID: 2187897490235254661}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4226861529116542736
@@ -246,3 +245,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3362086416941791545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5340812534250641949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 840c6b4db5f9c584c92626b35104e3b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _landmine: {fileID: 8936030588246935916}
+  _explosionIndicatorPrefab: {fileID: 8831486701401682502, guid: 2b849ce9983a03244a631fbc7977b6d3, type: 3}
+  _indicatorLinger: 2
