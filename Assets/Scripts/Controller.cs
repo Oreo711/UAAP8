@@ -15,8 +15,6 @@ public abstract class Controller
         _isEnabled = false;
     }
 
-    public virtual void UpdateTarget (Vector3 target){}
-
     public void Update ()
     {
         if (!_isEnabled)

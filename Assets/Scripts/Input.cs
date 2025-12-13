@@ -14,7 +14,7 @@ public class Input : MonoBehaviour
     {
         NavMeshQueryFilter filter = new NavMeshQueryFilter {agentTypeID = 0, areaMask = NavMesh.AllAreas};
 
-        _controller = new NavMeshAgentController(_character, filter);
+        _controller = new NavMeshAgentController(_character, filter, _navigationSurface);
         _controller.Enable();
     }
 
@@ -28,15 +28,10 @@ public class Input : MonoBehaviour
 
     private void SetCharacterDestination ()
     {
-        if (_character && RayCaster.TryGetRayCastPoint(
-                Camera.main.transform.position,
-                Camera.main.ScreenPointToRay(UnityEngine.Input.mousePosition).direction,
-                _navigationSurface,
-                out RaycastHit hit))
-        {
-            _controller.UpdateTarget(hit.point);
-            _controller.Update();
+        _controller.Update();
 
+        if (RayCaster.TryGetRayCastPoint(Camera.main.transform.position, Camera.main.ScreenPointToRay(UnityEngine.Input.mousePosition).direction, _navigationSurface, out RaycastHit hit))
+        {
             _flag.FlagPoint(hit.point);
         }
     }

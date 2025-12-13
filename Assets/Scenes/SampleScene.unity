@@ -256,7 +256,6 @@ GameObject:
   - component: {fileID: 151975176}
   - component: {fileID: 151975175}
   - component: {fileID: 151975179}
-  - component: {fileID: 151975180}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -277,6 +276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _agent: {fileID: 151975176}
+  _maxHealth: 100
 --- !u!195 &151975176
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -363,19 +363,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &151975180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 151975174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5b30054a151c9344a8a6266e7f34ba7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxHealth: 100
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1301,6 +1288,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3362086416941791545, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
+      propertyPath: _explosionSound
+      value: 
+      objectReference: {fileID: 531530398}
     - target: {fileID: 4885647511258087443, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
       propertyPath: m_Name
       value: Landmine (2)
@@ -1366,6 +1357,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3362086416941791545, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
+      propertyPath: _explosionSound
+      value: 
+      objectReference: {fileID: 531530398}
     - target: {fileID: 4885647511258087443, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
       propertyPath: m_Name
       value: Landmine (3)
@@ -1709,7 +1704,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _character: {fileID: 151975175}
-  _characterHealth: {fileID: 151975180}
 --- !u!1 &1498636386
 GameObject:
   m_ObjectHideFlags: 0
@@ -2159,6 +2153,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3362086416941791545, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
+      propertyPath: _explosionSound
+      value: 
+      objectReference: {fileID: 531530398}
     - target: {fileID: 4885647511258087443, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
       propertyPath: m_Name
       value: Landmine (1)
@@ -2351,6 +2349,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3362086416941791545, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
+      propertyPath: _explosionSound
+      value: 
+      objectReference: {fileID: 531530398}
     - target: {fileID: 4885647511258087443, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
       propertyPath: m_Name
       value: Landmine

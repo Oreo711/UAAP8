@@ -6,27 +6,36 @@ using UnityEngine.AI;
 public class NavMeshAgentController : Controller
 {
     private INavMeshMovable _movable;
+    private LayerMask _navigationSurface;
     private NavMeshPath _path;
-    Vector3 _target;
-    NavMeshQueryFilter _filter;
+    private NavMeshQueryFilter _filter;
 
-    public NavMeshAgentController (INavMeshMovable movable, NavMeshQueryFilter filter)
+    public Vector3 CurrentTarget {get; private set;}
+
+    public NavMeshAgentController (INavMeshMovable movable, NavMeshQueryFilter filter, LayerMask navigationSurface)
     {
         _movable = movable;
         _filter  = filter;
+        _navigationSurface = navigationSurface;
         _path    = new NavMeshPath();
-    }
-
-    public override void UpdateTarget (Vector3 target)
-    {
-        _target = target;
     }
 
     protected override void UpdateInternal ()
     {
-        if (NavMeshUtilities.TryGetPath(_movable.Position, _target, _filter, _path))
+        if (UnityEngine.Input.GetMouseButtonDown(0))
         {
-            _movable.WalkTo(_target);
+            if (RayCaster.TryGetRayCastPoint(
+                    Camera.main.transform.position,
+                    Camera.main.ScreenPointToRay(UnityEngine.Input.mousePosition).direction,
+                    _navigationSurface,
+                    out RaycastHit hit))
+            {
+                if (NavMeshUtilities.TryGetPath(_movable.Position, hit.point, _filter, _path))
+                {
+                    CurrentTarget = hit.point;
+                    _movable.WalkTo(hit.point);
+                }
+            }
         }
     }
 }
