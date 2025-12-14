@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -8,10 +9,9 @@ public class Landmine : MonoBehaviour
 {
 	[SerializeField] private float _triggerDistance = 2f;
 	[SerializeField] private float _explosionDamage;
-	[SerializeField] private float _detonationTime;
+	[SerializeField] private float _explosionTime;
 
 	private SphereCollider _collider;
-	private float _remainingDetonationTime;
 	private GameObject _activator;
 
 	public bool IsActivated {get; private set;}
@@ -21,37 +21,27 @@ public class Landmine : MonoBehaviour
 	private void Awake ()
 	{
 		_collider = GetComponent<SphereCollider>();
-		_remainingDetonationTime = _detonationTime;
 		_collider.radius = _triggerDistance;
-	}
-
-	private void Update ()
-	{
-		if (IsActivated)
-		{
-			_remainingDetonationTime -= Time.deltaTime;
-
-			if (_remainingDetonationTime <= 0)
-			{
-				if (_activator && (_activator.transform.position - transform.position).magnitude < _triggerDistance)
-				{
-					Character activator = _activator.GetComponent<Character>();
-					activator.TakeDamage(_explosionDamage);
-				}
-
-				IsDetonated = true;
-			}
-		}
 	}
 
 	private void OnTriggerEnter (Collider other)
 	{
 			IsActivated = true;
 			_activator = other.gameObject;
+
+			StartCoroutine(Fuse());
 	}
 
-	private void OnTriggerExit (Collider other)
+	private IEnumerator Fuse ()
 	{
-			_remainingDetonationTime = _detonationTime;
+		yield return new WaitForSeconds(_explosionTime);
+
+		if (_activator && (_activator.transform.position - transform.position).magnitude < _triggerDistance)
+		{
+			Character activator = _activator.GetComponent<Character>();
+			activator?.TakeDamage(_explosionDamage);
+		}
+
+		IsDetonated = true;
 	}
 }

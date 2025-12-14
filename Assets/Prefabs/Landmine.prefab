@@ -155,7 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _triggerDistance: 2
   _explosionDamage: 40
-  _detonationTime: 2
+  _explosionTime: 2
 --- !u!1 &5340812534250641949
 GameObject:
   m_ObjectHideFlags: 0
