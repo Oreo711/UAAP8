@@ -25,7 +25,7 @@ public class CharacterVisuals : MonoBehaviour
 
 	private void Update ()
 	{
-		if (!_isAlive)
+		if (_isAlive == false)
 			return;
 
 		SelectLayer();

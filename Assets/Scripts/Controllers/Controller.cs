@@ -17,7 +17,7 @@ public abstract class Controller
 
     public void Update ()
     {
-        if (!_isEnabled)
+        if (_isEnabled == false)
         {
             return;
         }

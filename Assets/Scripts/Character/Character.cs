@@ -36,4 +36,14 @@ public class Character : MonoBehaviour, INavMeshMovable, IHealth
 			CurrentHealth = 0;
 		}
 	}
+
+	public void HealDamage (float heal)
+	{
+		CurrentHealth += heal;
+
+		if (CurrentHealth > _maxHealth)
+		{
+			CurrentHealth = _maxHealth;
+		}
+	}
 }
