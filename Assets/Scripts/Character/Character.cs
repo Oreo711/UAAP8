@@ -7,7 +7,10 @@ using UnityEngine.AI;
 public class Character : MonoBehaviour, INavMeshMovable, IHealth
 {
 	[SerializeField] private NavMeshAgent _agent;
-	[SerializeField] private float        _maxHealth = 100f;
+	[SerializeField] private float _maxHealth = 100f;
+	[SerializeField] private float _jumpSpeed;
+
+	private AgentJumper _jumper;
 
 	public float MaxHealth => _maxHealth;
 
@@ -17,9 +20,13 @@ public class Character : MonoBehaviour, INavMeshMovable, IHealth
 
 	public Vector3 Position => transform.position;
 
+	public bool IsJumping => _jumper.InProcess;
+
 	private void Awake ()
 	{
 		CurrentHealth = _maxHealth;
+
+		_jumper = new AgentJumper(_jumpSpeed, _agent, this);
 	}
 
 	public void WalkTo (Vector3 point)
@@ -45,5 +52,22 @@ public class Character : MonoBehaviour, INavMeshMovable, IHealth
 		{
 			CurrentHealth = _maxHealth;
 		}
+	}
+
+	public bool IsOnNavMeshLink (out OffMeshLinkData offMeshLinkData)
+	{
+		if (_agent.isOnOffMeshLink)
+		{
+			offMeshLinkData = _agent.currentOffMeshLinkData;
+			return true;
+		}
+
+		offMeshLinkData = default;
+		return false;
+	}
+
+	public void Jump (OffMeshLinkData offMeshLinkData)
+	{
+		_jumper.Jump(offMeshLinkData);
 	}
 }

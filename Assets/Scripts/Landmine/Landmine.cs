@@ -38,7 +38,7 @@ public class Landmine : MonoBehaviour
 
 		if (_activator && (_activator.transform.position - transform.position).magnitude < _triggerDistance)
 		{
-			Character activator = _activator.GetComponent<Character>();
+			IHealth activator = _activator.GetComponent<IHealth>();
 			activator?.TakeDamage(_explosionDamage);
 		}
 

@@ -9,13 +9,14 @@ public class CharacterVisuals : MonoBehaviour
 	private static readonly int Velocity = Animator.StringToHash("Velocity");
 	private static readonly int Died     = Animator.StringToHash("Died");
 	private static readonly int Health   = Animator.StringToHash("Health");
+	private static readonly int InJump   = Animator.StringToHash("InJump");
 
 	private const int BaseLayerIndex    = 0;
 	private const int InjuredLayerIndex = 1;
 
 	private float _lastFrameCharacterHealth;
 	private Animator _animator;
-	private bool _isAlive = true;
+	private bool _isAlive  = true;
 
 	private void Awake ()
 	{
@@ -46,6 +47,8 @@ public class CharacterVisuals : MonoBehaviour
 			return;
 		}
 
+
+		_animator.SetBool(InJump, _character.IsJumping);
 		_animator.SetFloat(Velocity, _character.Velocity);
 
 		if (_lastFrameCharacterHealth > _character.CurrentHealth)

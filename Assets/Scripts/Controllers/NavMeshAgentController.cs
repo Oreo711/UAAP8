@@ -22,6 +22,14 @@ public class NavMeshAgentController : Controller
 
     protected override void UpdateInternal ()
     {
+        if (_movable.IsOnNavMeshLink(out OffMeshLinkData offMeshLinkData))
+        {
+            if (_movable.IsJumping == false)
+            {
+                _movable.Jump(offMeshLinkData);
+            }
+        }
+
         if (UnityEngine.Input.GetMouseButtonDown(0))
         {
             if (RayCaster.TryGetRayCastPoint(
