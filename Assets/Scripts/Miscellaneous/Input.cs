@@ -22,14 +22,14 @@ public class Input : MonoBehaviour
     {
         if (UnityEngine.Input.GetMouseButtonDown(0))
         {
-            SetCharacterDestination();
+            SetDestinationFlag();
         }
+
+        _controller.Update();
     }
 
-    private void SetCharacterDestination ()
+    private void SetDestinationFlag ()
     {
-        _controller.Update();
-
         if (RayCaster.TryGetRayCastPoint(Camera.main.transform.position, Camera.main.ScreenPointToRay(UnityEngine.Input.mousePosition).direction, _navigationSurface, out RaycastHit hit))
         {
             _flag.FlagPoint(hit.point);

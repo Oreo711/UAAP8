@@ -175,7 +175,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 520610f5665f7b34fbb5d6c7b3c4d1a6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -340,7 +340,7 @@ NavMeshAgent:
   avoidancePriority: 50
   m_AngularSpeed: 900
   m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
+  m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
@@ -679,6 +679,67 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 332377601}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &374184848
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2187897490235254661, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -11.994008
+      objectReference: {fileID: 0}
+    - target: {fileID: 2187897490235254661, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.581255
+      objectReference: {fileID: 0}
+    - target: {fileID: 2187897490235254661, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.214944
+      objectReference: {fileID: 0}
+    - target: {fileID: 2187897490235254661, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2187897490235254661, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2187897490235254661, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2187897490235254661, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2187897490235254661, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2187897490235254661, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2187897490235254661, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3362086416941791545, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
+      propertyPath: _explosionSound
+      value: 
+      objectReference: {fileID: 531530398}
+    - target: {fileID: 4885647511258087443, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
+      propertyPath: m_Name
+      value: Landmine (4)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -985,7 +1046,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 520610f5665f7b34fbb5d6c7b3c4d1a6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1728,8 +1789,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SerializedVersion: 1
   m_AgentTypeID: 0
-  m_StartPoint: {x: 0.000000005799173, y: 0.79901856, z: -0.39253357}
-  m_EndPoint: {x: 0.000000039374182, y: -0.7086869, z: 3.186854}
+  m_StartPoint: {x: 0.0000000011564902, y: 0.7990196, z: -0.2367506}
+  m_EndPoint: {x: 0.00000004688843, y: -0.7086864, z: 2.9347177}
   m_StartTransform: {fileID: 0}
   m_EndTransform: {fileID: 0}
   m_Activated: 1
@@ -2693,18 +2754,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3362086416941791545, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
-      propertyPath: _explosionSound
-      value: 
-      objectReference: {fileID: 531530398}
     - target: {fileID: 4885647511258087443, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
       propertyPath: m_Name
       value: Landmine
       objectReference: {fileID: 0}
-    - target: {fileID: 8936030588246935916, guid: c1fcb7a67e59b8148b5dac90e1145627, type: 3}
-      propertyPath: _explosionSound
-      value: 
-      objectReference: {fileID: 531530398}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2725,6 +2778,7 @@ SceneRoots:
   - {fileID: 1912460483}
   - {fileID: 982359100}
   - {fileID: 1000037755}
+  - {fileID: 374184848}
   - {fileID: 531530399}
   - {fileID: 137645031}
   - {fileID: 1452767230}

@@ -18,10 +18,16 @@ public class NavMeshAgentController : Controller
         _filter  = filter;
         _navigationSurface = navigationSurface;
         _path    = new NavMeshPath();
+        CurrentTarget = _movable.Position;
     }
 
     protected override void UpdateInternal ()
     {
+        if (_movable.IsActive == false)
+        {
+            return;
+        }
+
         if (_movable.IsOnNavMeshLink(out OffMeshLinkData offMeshLinkData))
         {
             if (_movable.IsJumping == false)
@@ -41,9 +47,10 @@ public class NavMeshAgentController : Controller
                 if (NavMeshUtilities.TryGetPath(_movable.Position, hit.point, _filter, _path))
                 {
                     CurrentTarget = hit.point;
-                    _movable.WalkTo(hit.point);
                 }
             }
         }
+
+        _movable.WalkTo(CurrentTarget);
     }
 }

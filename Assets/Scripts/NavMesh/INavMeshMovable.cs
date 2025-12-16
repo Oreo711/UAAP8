@@ -4,11 +4,13 @@ using UnityEngine.AI;
 
 public interface INavMeshMovable : ITransformPosition
 {
-	public bool IsJumping {get;}
+	bool IsJumping {get;}
+
+	bool IsActive  {get;}
 
 	void WalkTo (Vector3 point);
 
-	public bool IsOnNavMeshLink (out OffMeshLinkData offMeshLinkData);
+	bool IsOnNavMeshLink (out OffMeshLinkData offMeshLinkData);
 
-	public void Jump (OffMeshLinkData offMeshLinkData);
+	void Jump (OffMeshLinkData offMeshLinkData);
 }

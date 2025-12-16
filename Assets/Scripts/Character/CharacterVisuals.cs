@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class CharacterVisuals : MonoBehaviour
@@ -18,9 +19,12 @@ public class CharacterVisuals : MonoBehaviour
 	private Animator _animator;
 	private bool _isAlive  = true;
 
+	private MeshRenderer[] _renderers;
+
 	private void Awake ()
 	{
 		_animator = GetComponent<Animator>();
+		_renderers = GetComponentsInChildren<MeshRenderer>();
 		_lastFrameCharacterHealth = _character.CurrentHealth;
 	}
 
@@ -57,8 +61,6 @@ public class CharacterVisuals : MonoBehaviour
 		}
 	}
 
-	public void Destroy () => Destroy(_character.gameObject);
-
 	private void SelectLayer ()
 	{
 		if ((_character.CurrentHealth / _character.MaxHealth) < 0.3f)
@@ -71,5 +73,28 @@ public class CharacterVisuals : MonoBehaviour
 			_animator.SetLayerWeight(BaseLayerIndex, 1f);
 			_animator.SetLayerWeight(InjuredLayerIndex, 0f);
 		}
+	}
+
+	public void Dissolve()
+	{
+		StartCoroutine(DissolveProcess());
+	}
+
+	private IEnumerator DissolveProcess ()
+	{
+		float progress = 0f;
+
+		while (progress < 1f)
+		{
+			foreach (MeshRenderer renderer in _renderers)
+			{
+				renderer.material.SetFloat("_threshold", progress);
+			}
+
+			progress += Time.deltaTime;
+			yield return null;
+		}
+
+		Destroy(_character.gameObject);
 	}
 }

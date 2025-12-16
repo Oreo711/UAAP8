@@ -22,10 +22,12 @@ public class Character : MonoBehaviour, INavMeshMovable, IHealth
 
 	public bool IsJumping => _jumper.InProcess;
 
+	public bool IsActive => CurrentHealth > 0;
+
 	private void Awake ()
 	{
 		CurrentHealth = _maxHealth;
-
+		_agent = GetComponent<NavMeshAgent>();
 		_jumper = new AgentJumper(_jumpSpeed, _agent, this);
 	}
 
