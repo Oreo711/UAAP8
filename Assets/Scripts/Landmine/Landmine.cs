@@ -14,7 +14,6 @@ public class Landmine : MonoBehaviour
 	private SphereCollider _collider;
 	private GameObject _activator;
 
-	public bool IsActivated {get; private set;}
 	public bool IsDetonated {get; private set;}
 	public float TriggerDistance => _triggerDistance;
 
@@ -26,9 +25,6 @@ public class Landmine : MonoBehaviour
 
 	private void OnTriggerEnter (Collider other)
 	{
-			IsActivated = true;
-			_activator = other.gameObject;
-
 			StartCoroutine(Fuse());
 	}
 
@@ -36,10 +32,14 @@ public class Landmine : MonoBehaviour
 	{
 		yield return new WaitForSeconds(_explosionTime);
 
-		if (_activator && (_activator.transform.position - transform.position).magnitude < _triggerDistance)
+		Collider[] hitObjects = Physics.OverlapSphere(transform.position, _triggerDistance);
+
+		foreach (Collider hitObject in hitObjects)
 		{
-			IHealth activator = _activator.GetComponent<IHealth>();
-			activator?.TakeDamage(_explosionDamage);
+			if (hitObject.TryGetComponent(out IHealth health))
+			{
+				health.TakeDamage(_explosionDamage);
+			}
 		}
 
 		IsDetonated = true;

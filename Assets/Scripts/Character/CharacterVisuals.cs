@@ -11,6 +11,7 @@ public class CharacterVisuals : MonoBehaviour
 	private static readonly int Died     = Animator.StringToHash("Died");
 	private static readonly int Health   = Animator.StringToHash("Health");
 	private static readonly int InJump   = Animator.StringToHash("InJump");
+	private static readonly int AlphaClipThreshold = Shader.PropertyToID("_threshold");
 
 	private const int BaseLayerIndex    = 0;
 	private const int InjuredLayerIndex = 1;
@@ -25,7 +26,7 @@ public class CharacterVisuals : MonoBehaviour
 	{
 		_animator = GetComponent<Animator>();
 		_renderers = GetComponentsInChildren<MeshRenderer>();
-		_lastFrameCharacterHealth = _character.CurrentHealth;
+		_lastFrameCharacterHealth = _character.Health.CurrentHealth;
 	}
 
 	private void Update ()
@@ -36,14 +37,14 @@ public class CharacterVisuals : MonoBehaviour
 		SelectLayer();
 		SetParameters();
 
-		_lastFrameCharacterHealth = _character.CurrentHealth;
+		_lastFrameCharacterHealth = _character.Health.CurrentHealth;
 	}
 
 	private void SetParameters ()
 	{
-		_animator.SetFloat(Health, _character.CurrentHealth);
+		_animator.SetFloat(Health, _character.Health.CurrentHealth);
 
-		if (_character.CurrentHealth <= 0)
+		if (_character.Health.CurrentHealth <= 0)
 		{
 			_isAlive = false;
 			_animator.SetTrigger(Died);
@@ -55,7 +56,7 @@ public class CharacterVisuals : MonoBehaviour
 		_animator.SetBool(InJump, _character.IsJumping);
 		_animator.SetFloat(Velocity, _character.Velocity);
 
-		if (_lastFrameCharacterHealth > _character.CurrentHealth)
+		if (_lastFrameCharacterHealth > _character.Health.CurrentHealth)
 		{
 			_animator.SetTrigger(Hurt);
 		}
@@ -63,7 +64,7 @@ public class CharacterVisuals : MonoBehaviour
 
 	private void SelectLayer ()
 	{
-		if ((_character.CurrentHealth / _character.MaxHealth) < 0.3f)
+		if ((_character.Health.CurrentHealth / _character.Health.MaxHealth) < 0.3f)
 		{
 			_animator.SetLayerWeight(BaseLayerIndex, 0f);
 			_animator.SetLayerWeight(InjuredLayerIndex, 1f);
@@ -88,13 +89,13 @@ public class CharacterVisuals : MonoBehaviour
 		{
 			foreach (MeshRenderer renderer in _renderers)
 			{
-				renderer.material.SetFloat("_threshold", progress);
+				renderer.material.SetFloat(AlphaClipThreshold, progress);
 			}
 
 			progress += Time.deltaTime;
 			yield return null;
 		}
 
-		Destroy(_character.gameObject);
+		_character.Destroy();
 	}
 }

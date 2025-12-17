@@ -1,30 +1,40 @@
-using System;
 using System.Collections;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 
-public class SurroundingSpawner : MonoBehaviour
+public class SurroundingSpawner
 {
-    [SerializeField] private GameObject _objectPrefab;
-    [SerializeField] private Transform  _anchor;
-    [SerializeField] private float      _rate;
 
-    private Coroutine _spawnCoroutine;
+    private GameObject    _objectPrefab;
+    private Transform     _anchor;
+    private float         _rate;
+    private MonoBehaviour _coroutineRunner;
+    private Coroutine     _spawnCoroutine;
+    private float         _minDistance;
+    private float         _maxDistance;
 
-    private void Update ()
+    public SurroundingSpawner (GameObject objectPrefab, Transform anchor, float rate, MonoBehaviour coroutineRunner, float minDistance, float maxDistance)
     {
-        if (UnityEngine.Input.GetKeyDown(KeyCode.F))
+        _objectPrefab = objectPrefab;
+        _anchor = anchor;
+        _rate = rate;
+        _coroutineRunner = coroutineRunner;
+        _minDistance = minDistance;
+        _maxDistance = maxDistance;
+    }
+
+    public void Switch ()
+    {
+        if (_spawnCoroutine != null)
         {
-            if (_spawnCoroutine != null)
-            {
-                StopCoroutine(_spawnCoroutine);
-                _spawnCoroutine = null;
-            }
-            else
-            {
-                _spawnCoroutine = StartCoroutine(SpawnObject());
-            }
+            _coroutineRunner.StopCoroutine(_spawnCoroutine);
+            _spawnCoroutine = null;
+        }
+        else
+        {
+            _spawnCoroutine = _coroutineRunner.StartCoroutine(SpawnObject());
         }
     }
 
@@ -32,13 +42,13 @@ public class SurroundingSpawner : MonoBehaviour
     {
         while (true)
         {
-            float   distance  = Random.Range(1f, 3f);
+            float   distance  = Random.Range(_minDistance, _maxDistance);
             Vector3 direction = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
 
             Vector3 relativePosition = direction.normalized * distance;
             relativePosition.y = 0.5f;
 
-            Instantiate(_objectPrefab, _anchor.position + relativePosition, Quaternion.identity);
+            Object.Instantiate(_objectPrefab, _anchor.position + relativePosition, Quaternion.identity);
 
             yield return new WaitForSeconds(_rate);
         }

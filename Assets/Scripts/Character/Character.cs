@@ -1,20 +1,15 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 
-public class Character : MonoBehaviour, INavMeshMovable, IHealth
+public class Character : MonoBehaviour, INavMeshMovable
 {
 	[SerializeField] private NavMeshAgent _agent;
-	[SerializeField] private float _maxHealth = 100f;
 	[SerializeField] private float _jumpSpeed;
 
 	private AgentJumper _jumper;
 
-	public float MaxHealth => _maxHealth;
-
-	public float CurrentHealth {get; private set;}
+	public CharacterHealth Health {get; private set;}
 
 	public float Velocity => _agent.velocity.magnitude;
 
@@ -22,11 +17,11 @@ public class Character : MonoBehaviour, INavMeshMovable, IHealth
 
 	public bool IsJumping => _jumper.InProcess;
 
-	public bool IsActive => CurrentHealth > 0;
+	public bool IsActive => Health.CurrentHealth > 0;
 
 	private void Awake ()
 	{
-		CurrentHealth = _maxHealth;
+		Health = GetComponent<CharacterHealth>();
 		_agent = GetComponent<NavMeshAgent>();
 		_jumper = new AgentJumper(_jumpSpeed, _agent, this);
 	}
@@ -34,26 +29,6 @@ public class Character : MonoBehaviour, INavMeshMovable, IHealth
 	public void WalkTo (Vector3 point)
 	{
 		_agent.SetDestination(point);
-	}
-
-	public void TakeDamage (float damage)
-	{
-		CurrentHealth -= damage;
-
-		if (CurrentHealth <= 0)
-		{
-			CurrentHealth = 0;
-		}
-	}
-
-	public void HealDamage (float heal)
-	{
-		CurrentHealth += heal;
-
-		if (CurrentHealth > _maxHealth)
-		{
-			CurrentHealth = _maxHealth;
-		}
 	}
 
 	public bool IsOnNavMeshLink (out OffMeshLinkData offMeshLinkData)
@@ -71,5 +46,10 @@ public class Character : MonoBehaviour, INavMeshMovable, IHealth
 	public void Jump (OffMeshLinkData offMeshLinkData)
 	{
 		_jumper.Jump(offMeshLinkData);
+	}
+
+	public void Destroy ()
+	{
+		Destroy(gameObject);
 	}
 }
